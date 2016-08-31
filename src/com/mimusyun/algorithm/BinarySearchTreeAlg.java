@@ -16,8 +16,8 @@ public class BinarySearchTreeAlg {
 		TreeNode three = new TreeNode(3,null,null);
 		TreeNode four = new TreeNode(4,null,null);
 		TreeNode five = new TreeNode(5,null,null);
-		TreeNode six = new TreeNode(5,null,null);
-		TreeNode seven = new TreeNode(5,null,null);
+		TreeNode six = new TreeNode(6,null,null);
+		TreeNode seven = new TreeNode(7,null,null);
 		
 		one.left=two;
 		one.right=three;
@@ -29,15 +29,26 @@ public class BinarySearchTreeAlg {
 		return one;
 	}
 	
-	public static String serializeTree(TreeNode root){
-		return "a";
+	public static int maxSumPath(TreeNode root) {
+		int[] max = new int[1];
+		maxSumPathHelper(root, max);
+		return max[0];
 	}
 	
-	
-
-	public void restoreTree(String str){
-	    System.out.println();
+	private static int maxSumPathHelper(TreeNode root, int[] max) {
+		
+		if (root == null) return 0;
+		
+		int left = maxSumPathHelper(root.left, max);
+		int right = maxSumPathHelper(root.right, max);
+	 
+		int current = Math.max(root.data, Math.max(root.data + left, root.data + right));
+	 
+		max[0] = Math.max(max[0], Math.max(current, left + root.data + right));
+	 
+		return current;
 	}
+	
 	
 	public static boolean validateBSTItr(TreeNode root) {
 		

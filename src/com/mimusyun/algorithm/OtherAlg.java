@@ -2,7 +2,42 @@ package com.mimusyun.algorithm;
 
 import java.util.ArrayList;
 
+import com.mimusyun.datastructure.Interval;
+
 public class OtherAlg {
+	
+	public static ArrayList<Interval> mergeIntervals(ArrayList<Interval> intervalsList) {
+		
+		if(intervalsList.size()==0) return new ArrayList<Interval>();
+		
+		ArrayList<Interval> ansArr = new ArrayList<>();
+		
+		for(int i=0; i<intervalsList.size(); i++) {
+			
+			boolean merge = false;
+			Interval interval = intervalsList.get(i);
+			
+			for(int j=0; j<ansArr.size(); j++) {
+				
+				Interval in = ansArr.get(j);
+				boolean isMerge = (in.start <= interval.start && interval.start <= in.end);
+				
+				if(i == j || !isMerge) continue;
+					
+				merge = true;
+				int start = in.start;
+				int end = (in.end>interval.end) ? in.end : interval.end;
+					
+				ansArr.set(j, new Interval(start, end));
+				break;
+				
+			}
+			if(!merge) ansArr.add(interval);
+
+		}
+		
+		return ansArr;	    
+	}
 	
 	public static ArrayList<String> validParentheses(int openP, int closeP, String string, ArrayList<String> arr) {
 		
