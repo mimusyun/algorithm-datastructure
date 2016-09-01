@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Stack;
 
+import com.mimusyun.datastructure.BNode;
 import com.mimusyun.datastructure.TreeNode;
 
 public class BinarySearchTreeAlg {
@@ -11,9 +12,9 @@ public class BinarySearchTreeAlg {
 	
 	public static TreeNode createBinaryTree() {
 		
-		TreeNode one = new TreeNode(1,null,null);
-		TreeNode two = new TreeNode(2,null,null);
-		TreeNode three = new TreeNode(3,null,null);
+		TreeNode one = new TreeNode(10,null,null);
+		TreeNode two = new TreeNode(8,null,null);
+		TreeNode three = new TreeNode(30,null,null);
 		TreeNode four = new TreeNode(4,null,null);
 		TreeNode five = new TreeNode(5,null,null);
 		TreeNode six = new TreeNode(6,null,null);
@@ -21,13 +22,24 @@ public class BinarySearchTreeAlg {
 		
 		one.left=two;
 		one.right=three;
-		two.left=four;
-		two.right=five;
-		three.left=six;
-		three.right=seven;
+//		two.left=four;
+//		two.right=five;
+//		three.left=six;
+//		three.right=seven;
 		
 		return one;
 	}
+	
+	public String serializeTree(TreeNode root){
+	    return "";
+	}
+
+	public TreeNode restoreTree(String str){
+	    return null;
+	}
+	
+	
+
 	
 	public static int maxSumPath(TreeNode root) {
 		int[] max = new int[1];
@@ -51,8 +63,23 @@ public class BinarySearchTreeAlg {
 	
 	
 	public static boolean validateBSTItr(TreeNode root) {
-		
-		
+		if(root == null) return true;
+        
+        LinkedList<BNode> queue = new LinkedList<BNode>();
+        queue.add(new BNode(root, Double.NEGATIVE_INFINITY, Double.POSITIVE_INFINITY));
+        while(!queue.isEmpty()){
+        	BNode b = queue.poll();
+        	if(b.n.data <= b.left || b.n.data >=b.right){
+        		return false;
+        	}
+        	if(b.n.left!=null){
+        		queue.offer(new BNode(b.n.left, b.left, b.n.data));
+        	}
+        	if(b.n.right!=null){
+        		queue.offer(new BNode(b.n.right, b.n.data, b.right));
+        	}
+        }
+        
         return true;
 	}
 	
