@@ -1,6 +1,5 @@
 package com.mimusyun.algorithm;
 
-import java.io.Reader;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedList;
@@ -14,54 +13,59 @@ public class BinarySearchTreeAlg {
 	
 	public static TreeNode createBinaryTree() {
 		
-		TreeNode one = new TreeNode(10,null,null);
-		TreeNode two = new TreeNode(8,null,null);
-		TreeNode three = new TreeNode(30,null,null);
-		TreeNode four = new TreeNode(4,null,null);
-		TreeNode five = new TreeNode(5,null,null);
-		TreeNode six = new TreeNode(6,null,null);
-		TreeNode seven = new TreeNode(7,null,null);
+		TreeNode one = new TreeNode(15,null,null);
+		TreeNode two = new TreeNode(4,null,null);
+		TreeNode three = new TreeNode(8,null,null);
+		TreeNode four = new TreeNode(2,null,null);
+		TreeNode five = new TreeNode(10,null,null);
 		
 		one.left=two;
 		one.right=three;
 		two.left=four;
-		two.right=five;
-		three.left=six;
-		three.right=seven;
+		three.right=five;
 		
 		return one;
 	}
 	
-	public static String serializeTree(TreeNode root) {
-		StringBuilder sb = new StringBuilder();
-		serializeTreeHelper(root, sb);
-		if(sb.length()>0) sb.deleteCharAt(0);
-		return sb.toString();
+	public static int findTreeSize(TreeNode root) {
+		if (root == null) return 0;
+	    return 1 + findTreeSize(root.left) + findTreeSize(root.right);
 	}
 	
-	private static StringBuilder serializeTreeHelper(TreeNode node, StringBuilder sb) {
-		if(node==null) sb.append(",#");
-		else {
-			sb.append(","+node.data);
-			serializeTreeHelper(node.left, sb);
-			serializeTreeHelper(node.right, sb);
-		}
-		return sb;
+	/** finds the k-th smallest tree node */
+	public static TreeNode findKthSmallest(TreeNode root, int k) {
+		
+	    if(root==null) return null;
+	    int leftSize = 0;
+	    if(root.left!=null) leftSize = findTreeSize(root.left);
+	    if(leftSize+1 == k) { 
+            return root;
+        } else if(k <= leftSize) {
+            return findKthSmallest(root.left, k);
+        } else {
+            return findKthSmallest(root.right, k-leftSize-1);
+        }
 	}
 	
-	public static TreeNode restoreTree(String str) {
-		String[] nodes = str.split(",");
-		LinkedList<String> lst = new LinkedList<>(Arrays.asList(nodes));
-		return restoreTreeHelper(lst);
-	}
-	
-	private static TreeNode restoreTreeHelper(LinkedList<String> nodes) {
-		String nodeDataStr = nodes.remove();
-		if(nodeDataStr.equals("#")) return null;
-		TreeNode t = new TreeNode(Integer.valueOf(nodeDataStr), null, null);
-		t.left = restoreTreeHelper(nodes);
-		t.right = restoreTreeHelper(nodes);
-		return t;
+	public static ArrayList<Integer> preorderItr(TreeNode root) {
+	    
+		if(root==null) return null;
+		
+		ArrayList<Integer> ansLst = new ArrayList<>();
+		Stack<TreeNode> lst = new Stack<>();
+	    lst.add(root);
+	    
+	    while(!lst.isEmpty()) {
+	    	
+	    	TreeNode node = lst.pop();
+	    	ansLst.add(node.data);
+	    	if(node.right!=null) lst.push(node.right);
+	    	if(node.left!=null) lst.push(node.left);
+	    	
+	    }
+	    
+	    return ansLst;
+	    
 	}
 	
 	public static int maxSumPath(TreeNode root) {
@@ -89,7 +93,7 @@ public class BinarySearchTreeAlg {
 		if(root == null) return true;
         
         LinkedList<BNode> queue = new LinkedList<BNode>();
-        queue.add(new BNode(root, Double.NEGATIVE_INFINITY, Double.POSITIVE_INFINITY));
+        queue.add(new BNode(root, Integer.MIN_VALUE, Integer.MAX_VALUE));
         while(!queue.isEmpty()){
         	BNode b = queue.poll();
         	if(b.n.data <= b.left || b.n.data >=b.right){
@@ -155,40 +159,21 @@ public class BinarySearchTreeAlg {
 	    
 	}
 	
-	public static ArrayList<Integer> preorderItr(TreeNode root) {
-	    
-	    ArrayList<Integer> lst = new ArrayList<>();
-	    Stack<TreeNode> unvisited = new Stack<>();
-	    
-	    if(root==null) return lst;
-	    unvisited.push(root);
-	    
-	    while(!unvisited.empty()) {
-	        TreeNode node = unvisited.pop();
-	        lst.add(node.data);
-	        if(node.right != null) unvisited.push(node.right);
-	        if(node.left != null) unvisited.push(node.left);
-	    }
-	    
-	    return lst;
-	    
-	}
-	
-	public static int diameter(TreeNode root) {
+	public static int findDiameter(TreeNode root) {
 	    
 		if (root == null) return 0;
 
-	    int rootDiameter = getHeight(root.left) + getHeight(root.right) + 1;
-	    int leftDiameter = diameter(root.left);
-	    int rightDiameter = diameter(root.right);
+	    int rootDiameter = findHeight(root.left) + findHeight(root.right) + 1;
+	    int leftDiameter = findDiameter(root.left);
+	    int rightDiameter = findDiameter(root.right);
 
 	    return Math.max(rootDiameter, Math.max(leftDiameter, rightDiameter));
 
 	}
 	
-	public static int getHeight(TreeNode root) {
+	public static int findHeight(TreeNode root) {
 	    if (root == null) return 0;
-	    return Math.max(getHeight(root.left), getHeight(root.right)) + 1;
+	    return Math.max(findHeight(root.left), findHeight(root.right)) + 1;
 	}
 	
 	public static TreeNode findMax(TreeNode root) {
@@ -200,6 +185,7 @@ public class BinarySearchTreeAlg {
 		
 	}
 	
+	/** Insert TreeNode */
 	public static TreeNode insert(TreeNode root, int data) { 
 	    
 		TreeNode newNode = new TreeNode(data,null,null);
@@ -275,7 +261,6 @@ public class BinarySearchTreeAlg {
         int left = minTreeDepth(root.left);
         int right = minTreeDepth(root.right);
 
-        // current node is not leaf node
         if (root.left == null) {
             return 1 + right;
         } else if (root.right == null) {
@@ -285,7 +270,8 @@ public class BinarySearchTreeAlg {
         return (left<right) ? 1+left : 1+right;
 	    
 	}
-
+	
+	
 	public static int maxTreeDepth(TreeNode root) {
 	    
 	    if (root == null) return 0;
@@ -301,6 +287,56 @@ public class BinarySearchTreeAlg {
 	    
 	    return (left>right) ? 1+left : 1+right;
 
+	}
+	
+	/* Serialize & Restore */
+	public static String serializeTree(TreeNode root) {
+		StringBuilder sb = new StringBuilder();
+		serializeTreeHelper(root, sb);
+		if(sb.length()>0) sb.deleteCharAt(0);
+		return sb.toString();
+	}
+	
+	private static StringBuilder serializeTreeHelper(TreeNode node, StringBuilder sb) {
+		if(node==null) sb.append(",#");
+		else {
+			sb.append(","+node.data);
+			serializeTreeHelper(node.left, sb);
+			serializeTreeHelper(node.right, sb);
+		}
+		return sb;
+	}
+	
+	public static int numberOfHalfNodes(TreeNode root) { 
+        
+		if(root==null) return 0;
+		
+		Stack<TreeNode> st = new Stack<>();
+        st.push(root);
+        int counter = 0;
+        
+        while(!st.isEmpty()) {
+        	TreeNode node = st.pop();
+        	if(node.left!=null || node.right!=null) counter++;
+        	if(node.right!=null) st.add(node.right);
+        	if(node.left!=null) st.add(node.left);
+        }
+	    return counter;
+	}
+	
+	public static TreeNode restoreTree(String str) {
+		String[] nodes = str.split(",");
+		LinkedList<String> lst = new LinkedList<>(Arrays.asList(nodes));
+		return restoreTreeHelper(lst);
+	}
+	
+	private static TreeNode restoreTreeHelper(LinkedList<String> nodes) {
+		String nodeData = nodes.remove();
+		if(nodeData.equals("#")) return null;
+		TreeNode t = new TreeNode(Integer.valueOf(nodeData), null, null);
+		t.left = restoreTreeHelper(nodes);
+		t.right = restoreTreeHelper(nodes);
+		return t;
 	}
 
 }

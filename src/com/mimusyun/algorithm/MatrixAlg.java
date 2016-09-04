@@ -14,52 +14,52 @@ public class MatrixAlg {
 	    flipItHorizontalAxis(matrix);
 	}	
 	
-	public static void findSpiral(int[][] arr) {
-		printTopRight(arr, 0, 0, arr.length, arr[0].length);
+	public static ArrayList<Integer> findSpiral(int[][] arr) {
+		
+		ArrayList<Integer> spiralOrder = new ArrayList<>();
+		if(arr == null || arr.length == 0) return spiralOrder;
+		int m=arr.length, n=arr[0].length;
+		int x=0, y=0;
+		while(m>0 && n>0) {
+			
+			if(m==0) {
+				for(int i=0; i<n; i++) {
+					spiralOrder.add(arr[x][y++]);
+				}
+				break;
+			
+			} else if (n==0) {
+				for(int i=0; i<m; i++) {
+					spiralOrder.add(arr[x++][y]);
+				}
+				break;
+			}
+			
+			for(int i=0; i<n-1; i++) {
+				spiralOrder.add(arr[x][y++]);
+			}
+			for(int j=0; j<m-1; j++) {
+				spiralOrder.add(arr[x++][y]);
+			}
+			for(int j=0; j<n-1; j++) {
+				spiralOrder.add(arr[x][y--]);
+			}
+			for(int j=0; j<m-1; j++) {
+				spiralOrder.add(arr[x--][y]);
+			}
+			
+			x++;
+			y++;
+			m=m-2;
+			n=n-2;
+		}
+		
+		return spiralOrder;
 	}
 	
-	public static void printTopRight(int a[][], int x1, int y1, int x2, int y2) {
-	    int i = 0, j = 0;
-
-	    // print values in the row.
-	    for(i = x1; i<=x2; i++) {
-	    	System.out.print(a[y1][i]+ " ");
-	    }
-	    
-
-	    // print values in the column.
-	    for(j = y1 + 1; j <= y2; j++) {
-	    	System.out.print(a[j][x2]+ " ");
-	    }
-
-	    // see if more layers need to be printed.
-	    if(x2-x1 > 0) {
-	        // if yes recursively call the function to 
-	        // print the bottom left of the sub matrix.
-	        printBottomLeft(a, x1, y1 + 1, x2-1, y2);
-	    }
+	public static void print(Object str){
+		System.out.println(str.toString());
 	}
-
-	// function to print the bottom-left peel of the matrix and 
-	// recursively call the print top-right on the submatrix.
-	public static void printBottomLeft(int a[][], int x1, int y1, int x2, int y2) {
-	    int i = 0, j = 0;
-
-	    // print the values in the row in reverse order.
-	    for(i = x2; i>=x1; i--) {
-	        System.out.print(a[y2][i] + " ");
-	    }
-
-	    // print the values in the col in reverse order.
-	    for(j = y2 - 1; j >= y1; j--) {
-	    	System.out.print(a[j][x1] + " ");
-	    }
-
-	}
-
-	
-	
-
 
 	private static void flipItHorizontalAxis(int[][] matrix) {
 	    int r = matrix.length - 1, c = matrix[0].length - 1;

@@ -4,7 +4,6 @@ import java.util.HashMap;
 
 public class StringAlg {
 	
-	
 	public static String reverseString(String str){
 		if(str==null) return null;
 		
@@ -55,5 +54,23 @@ public class StringAlg {
 		
 		return null;
 	    
+	}
+	
+	public static String insertPairStar(String s) {
+		
+		if(s==null) return null;
+		 
+		if(s.length()<2) return s;
+		
+		StringBuffer sb = new StringBuffer();
+		if(s.charAt(0)==s.charAt(1)) {
+			sb.append(s.charAt(0));
+			sb.append('*');
+		} else {
+			sb.append(s.charAt(0));
+		}
+		
+		return sb.toString() + insertPairStar(s.substring(1));
+		 
 	}
 }

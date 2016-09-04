@@ -33,5 +33,33 @@ public class DoublyLinkedListAlg {
 	    return newHead;
 
 	}
+	
+	public static DoublyLinkedNode deleteAtPos(DoublyLinkedNode head, int pos) {
+        
+		if(head==null) return null;
+		if(pos<1) return null;
+		else if(pos==1) {
+			
+			if(head.next==null) return null;
+			
+			head = head.next;
+			head.prev = null;
+			return head;
+		} 
+		
+		DoublyLinkedNode node = head;
+		for(int i=1; i<pos; i++) {
+			if(node.next!=null) node=node.next;
+			else return head;
+		}
+		
+		DoublyLinkedNode prev = node.prev;
+		DoublyLinkedNode next = node.next;
+		node = null;
+		prev.next=next;
+		
+		return head;
+		
+	}
 
 }
