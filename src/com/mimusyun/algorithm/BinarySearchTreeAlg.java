@@ -1,6 +1,8 @@
 package com.mimusyun.algorithm;
 
+import java.io.Reader;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.Stack;
 
@@ -22,24 +24,45 @@ public class BinarySearchTreeAlg {
 		
 		one.left=two;
 		one.right=three;
-//		two.left=four;
-//		two.right=five;
-//		three.left=six;
-//		three.right=seven;
+		two.left=four;
+		two.right=five;
+		three.left=six;
+		three.right=seven;
 		
 		return one;
 	}
 	
-	public String serializeTree(TreeNode root){
-	    return "";
-	}
-
-	public TreeNode restoreTree(String str){
-	    return null;
+	public static String serializeTree(TreeNode root) {
+		StringBuilder sb = new StringBuilder();
+		serializeTreeHelper(root, sb);
+		if(sb.length()>0) sb.deleteCharAt(0);
+		return sb.toString();
 	}
 	
+	private static StringBuilder serializeTreeHelper(TreeNode node, StringBuilder sb) {
+		if(node==null) sb.append(",#");
+		else {
+			sb.append(","+node.data);
+			serializeTreeHelper(node.left, sb);
+			serializeTreeHelper(node.right, sb);
+		}
+		return sb;
+	}
 	
-
+	public static TreeNode restoreTree(String str) {
+		String[] nodes = str.split(",");
+		LinkedList<String> lst = new LinkedList<>(Arrays.asList(nodes));
+		return restoreTreeHelper(lst);
+	}
+	
+	private static TreeNode restoreTreeHelper(LinkedList<String> nodes) {
+		String nodeDataStr = nodes.remove();
+		if(nodeDataStr.equals("#")) return null;
+		TreeNode t = new TreeNode(Integer.valueOf(nodeDataStr), null, null);
+		t.left = restoreTreeHelper(nodes);
+		t.right = restoreTreeHelper(nodes);
+		return t;
+	}
 	
 	public static int maxSumPath(TreeNode root) {
 		int[] max = new int[1];

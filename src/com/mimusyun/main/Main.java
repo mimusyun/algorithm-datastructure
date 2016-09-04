@@ -9,7 +9,14 @@ import com.mimusyun.algorithm.book.examples.*;
 public class Main {
 	
 	public static void main(String[] args) {
-		Chapter1_1_Basic_Programming.run();
+		int[][] matrix = new int[][] {
+			{1,2,3,4,5},
+			{1,2,3,4,5},
+			{1,2,3,4,5},
+			{1,2,3,4,5}
+		};
+		
+		MatrixAlg.findSpiral(matrix);
 	}
 	
 
