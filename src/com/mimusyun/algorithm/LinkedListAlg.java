@@ -1,6 +1,7 @@
 package com.mimusyun.algorithm;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 
 import com.mimusyun.datastructure.ListNode;
 
@@ -105,7 +106,24 @@ public class LinkedListAlg {
 	
 	}
 	
-public static ListNode deleteAtMiddle(ListNode head, int position) {
+	public static Boolean isCyclic(ListNode head) {
+	    
+		if(head==null) return null;
+		
+		HashSet<Integer> set = new HashSet<>();
+		set.add(head.data);
+		
+	    while(head.next!=null) {
+	    	head = head.next;
+	    	if(set.contains(head.data)) return true;
+	    	else set.add(head.data);
+	    }
+	    
+	    return false;
+
+	}
+	
+	public static ListNode deleteAtMiddle(ListNode head, int position) {
 		
 		if(head==null) return null;
 		
@@ -137,5 +155,74 @@ public static ListNode deleteAtMiddle(ListNode head, int position) {
 		return head;
 	    
 	}
+	
+	public static ListNode reverseList(ListNode head) {
+	    
+		if(head==null) return null;
+		
+		ListNode curr = head;
+	    ListNode prev = null;
+	    ListNode next = null;
+	    
+	    while(curr!=null) {
+	    	next = curr.next;
+	    	curr.next = prev;
+	    	prev = curr;
+	    	curr = next;
+	    }
+		
+	    return prev;
+
+	}
+	
+	public static ListNode findNthNodeFromEnd(ListNode head, int n) {
+        
+		if(head==null) return null;
+		
+		ListNode current = head;
+		
+		int len = 1;
+		while(head!=null) {
+			head = head.next;
+			len++;
+		}
+		
+		int pos = len-n;
+		int cur = 1;
+		
+		while(cur<pos) {
+			current = current.next;
+			cur++;
+		}
+		
+		return current;
+		
+	}
+	
+	public static ListNode removeNthFromEnd(ListNode head, int n) {
+		
+		ListNode node = head;
+	    
+	    while (node != null && n > 0) {
+	    	node = node.next;
+	        n--;
+	    }
+	    if (node == null)
+	        if (n > 0) return head;
+	        else return head.next;
+	    
+	    ListNode rm = head;
+	    while (node.next != null) {
+	    	node = node.next;
+	        rm = rm.next;
+	    }
+	    ListNode t = rm.next;
+	    rm.next = t.next;
+
+	    return head;
+	}
+
+	
+	
 
 }

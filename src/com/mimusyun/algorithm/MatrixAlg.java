@@ -20,15 +20,15 @@ public class MatrixAlg {
 		if(arr == null || arr.length == 0) return spiralOrder;
 		int m=arr.length, n=arr[0].length;
 		int x=0, y=0;
-		while(m>0 && n>0) {
+		while(m>0 & n>0) {
 			
-			if(m==0) {
+			if(m<=1) {
 				for(int i=0; i<n; i++) {
 					spiralOrder.add(arr[x][y++]);
 				}
 				break;
 			
-			} else if (n==0) {
+			} else if (n<=1) {
 				for(int i=0; i<m; i++) {
 					spiralOrder.add(arr[x++][y]);
 				}

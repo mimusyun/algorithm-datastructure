@@ -13,24 +13,55 @@ public class BinarySearchTreeAlg {
 	
 	public static TreeNode createBinaryTree() {
 		
-		TreeNode one = new TreeNode(15,null,null);
-		TreeNode two = new TreeNode(4,null,null);
-		TreeNode three = new TreeNode(8,null,null);
-		TreeNode four = new TreeNode(2,null,null);
-		TreeNode five = new TreeNode(10,null,null);
+		TreeNode root = new TreeNode(1);
+        root.left = new TreeNode(2);
+        root.right = new TreeNode(3);
+        root.left.left = new TreeNode(4);
+        root.left.left.left = new TreeNode(8);
+        root.left.right = new TreeNode(5);
+        root.right.left = new TreeNode(6);
+        root.right.right = new TreeNode(7);
 		
-		one.left=two;
-		one.right=three;
-		two.left=four;
-		three.right=five;
-		
-		return one;
+		return root;
 	}
 	
 	public static int findTreeSize(TreeNode root) {
 		if (root == null) return 0;
 	    return 1 + findTreeSize(root.left) + findTreeSize(root.right);
 	}
+	
+	public static TreeNode decompressTree(String str){
+	    
+		if(str.length()==1) {
+			if(str.equals("*")) return null;
+			else return new TreeNode(Integer.valueOf(str), null, null);
+		}
+		String[] arr = str.split(",");
+	    LinkedList<String> nodes = new LinkedList<>(Arrays.asList(arr));
+	    TreeNode root = new TreeNode(Integer.valueOf(nodes.remove()), null, null);
+	    LinkedList<TreeNode> st = new LinkedList<>();
+	    st.add(root);
+	    
+	    while(!nodes.isEmpty()) {
+	    	TreeNode node = st.remove();
+	    	String left = nodes.remove();
+	    	String right = nodes.remove();
+	    	if(!left.equals("*")) {
+	    		node.left = new TreeNode(Integer.valueOf(left), null, null);
+	    		st.add(node.left);
+	    	}
+	    	if(!right.equals("*")) {
+	    		node.right = new TreeNode(Integer.valueOf(right), null, null);
+	    		st.add(node.right);
+	    	}
+	    	
+			
+			
+	    }
+	    
+	    return root;
+	    
+	}	
 	
 	/** finds the k-th smallest tree node */
 	public static TreeNode findKthSmallest(TreeNode root, int k) {

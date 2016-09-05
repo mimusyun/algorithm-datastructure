@@ -7,6 +7,28 @@ import com.mimusyun.datastructure.Interval;
 
 public class OtherAlg {
 	
+	public static String computeBinary(int val) {
+		
+		if(val==0) return "0";
+		StringBuffer sb = new StringBuffer();
+		
+		while(val>=1) {
+			sb.append(val%2);
+			val /= 2;
+		}
+
+		return sb.reverse().toString();
+
+	}
+	
+	public static String computeBinaryRecur(int val) {
+		
+		if(val<=1) return String.valueOf(val);
+		
+		return computeBinaryRecur(val/2) + (val%2); 
+
+	}
+	
 	public static int fib(int n) {
 		
 		if(n<=1) return n;
