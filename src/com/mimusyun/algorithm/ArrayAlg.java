@@ -1,8 +1,17 @@
 package com.mimusyun.algorithm;
 
-import java.util.HashMap;
+import java.util.Arrays;
+
 
 public class ArrayAlg {
+	
+	public static Boolean binarySearch(int[] arr, int n){
+		if (arr.length == 0) return false;
+	    int mid = arr[arr.length / 2];
+	    if (n < mid) return binarySearch(Arrays.copyOfRange(arr, 0, arr.length / 2), n);
+	    if (n > mid) return binarySearch(Arrays.copyOfRange(arr, arr.length / 2 + 1, arr.length), n);
+	    return mid == n;
+	}
 	
 	public static int getMaxRepetition(int[] a) {
 		

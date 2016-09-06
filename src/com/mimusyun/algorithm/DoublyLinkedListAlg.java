@@ -21,6 +21,35 @@ public class DoublyLinkedListAlg {
 		return head;
 	}
 	
+	public static DoublyLinkedNode insertAtPos(DoublyLinkedNode head, int data, int pos) {
+	    
+	    if(head==null && pos != 1) return null;
+	    
+	    DoublyLinkedNode _head = head;
+	    DoublyLinkedNode newNode = new DoublyLinkedNode(data);
+	    
+	    if(pos<=0) return null;
+	    else if(pos==1) {
+	        
+	        newNode.next = head;
+	        return newNode;
+	        
+	    } else {
+	        
+	        while(--pos>1) {
+	            _head = _head.next;
+	            if(_head==null) return head;
+	        }
+	        
+	        DoublyLinkedNode tmp = _head.next;
+	        _head.next = newNode;
+	        newNode.next = tmp;
+	        
+	        return head;
+	        
+	    }
+	}
+	
 	public static DoublyLinkedNode insertAtHead(DoublyLinkedNode head, int data) {
 
 	    DoublyLinkedNode newHead = new DoublyLinkedNode(data);
@@ -61,5 +90,13 @@ public class DoublyLinkedListAlg {
 		return head;
 		
 	}
+	
+	public static void displayDoublyLinkedList(DoublyLinkedNode head) {
+		while(head!=null) {
+			System.out.println(head.data);
+			head = head.next;
+		}
+	}
+	
 
 }

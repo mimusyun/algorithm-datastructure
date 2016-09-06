@@ -7,6 +7,49 @@ import com.mimusyun.datastructure.ListNode;
 
 public class LinkedListAlg {
 	
+	public static ListNode createLinkedList(String str) {
+		String[] arr = str.split("->");
+		
+		ListNode node = new ListNode(Integer.valueOf(arr[0]));
+		ListNode head = node;
+
+		for(int i=1; i<arr.length; i++) {
+			node.next = new ListNode(Integer.valueOf(arr[i]));
+			node = node.next;
+		}
+		
+		return head;
+		
+	}
+	
+	public static ListNode createCircularList(String str) {
+		String[] arr = str.split("->");
+		
+		ListNode node = new ListNode(Integer.valueOf(arr[0]));
+		ListNode head = node;
+
+		for(int i=1; i<arr.length; i++) {
+			node.next = new ListNode(Integer.valueOf(arr[i]));
+			node = node.next;
+		}
+		
+		node.next = head;
+
+		return head;
+	}
+	
+	public ListNode insertAtTail(ListNode head, int data) {
+	    
+	    if(head==null) return new ListNode(data);
+	    
+	    ListNode _head = head;
+	    while(_head.next!=null) _head=_head.next;
+	    _head.next = new ListNode(data);
+	    
+	    return head;
+
+	}
+	
 	public static Boolean isListPalindrome(ListNode head) {
         
 		if(head==null || head.next==null) return true;
@@ -26,21 +69,6 @@ public class LinkedListAlg {
 
 		return true;
 
-	}
-	
-	public static ListNode createLinkedList(String str) {
-		String[] arr = str.split("->");
-		
-		ListNode node = new ListNode(Integer.valueOf(arr[0]));
-		ListNode head = node;
-
-		for(int i=1; i<arr.length; i++) {
-			node.next = new ListNode(Integer.valueOf(arr[i]));
-			node = node.next;
-		}
-		
-		return head;
-		
 	}
 	
 	public static ListNode insertAtHead(ListNode head, int data) {
@@ -221,6 +249,23 @@ public class LinkedListAlg {
 
 	    return head;
 	}
+	
+	public static ListNode insertAtTailInCircularList(ListNode head, int data) {            
+	      ListNode newNode = new ListNode(data);            
+	      ListNode curr = head;             
+	      newNode.next = newNode; //after creation, point to itself
+	      if(head == null) {
+	              head = newNode;
+	      } else {
+	          while(curr.next != head) {
+	                  curr = curr.next;             
+	          }
+	          newNode.next = head;
+	          curr.next = newNode;
+	      }
+	      return head;
+	  }
+
 
 	
 	

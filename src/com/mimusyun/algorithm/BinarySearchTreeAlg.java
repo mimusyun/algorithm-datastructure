@@ -216,6 +216,25 @@ public class BinarySearchTreeAlg {
 		
 	}
 	
+	public ArrayList<Integer> levelorder(TreeNode root) {
+	    
+	    if(root==null) return null;
+	    
+	    ArrayList<Integer> lst = new ArrayList<>();
+	    LinkedList<TreeNode> st = new LinkedList<>();
+	    st.push(root);
+	    
+	    while(!st.isEmpty()) {
+	        TreeNode node = st.remove();
+	        lst.add(node.data);
+	        if(node.left!=null) st.add(node.left);
+	        if(node.right!=null) st.add(node.right);
+	    }
+	    
+	    return lst;
+
+	}
+	
 	/** Insert TreeNode */
 	public static TreeNode insert(TreeNode root, int data) { 
 	    

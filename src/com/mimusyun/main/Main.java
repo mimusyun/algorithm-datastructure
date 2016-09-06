@@ -1,24 +1,15 @@
 package com.mimusyun.main;
 
-import java.util.ArrayList;
-import java.util.Stack;
-
+import java.util.*;
 import com.mimusyun.algorithm.*;
 import com.mimusyun.datastructure.*;
-import com.mimusyun.algorithm.book.examples.*;
+//import com.mimusyun.algorithm.book.examples.*;
 
 public class Main {
 	
 	public static void main(String[] args) {
 		
-		ListNode _node = LinkedListAlg.createLinkedList("1");
-		ListNode node = removeDuplicates(_node);
-		
-		while(node!=null) {
-			print(node.data);
-			node = node.next;
-		}
-		
+		print(ArrayAlg.binarySearch(new int[]{1,2,3,4,5,6,7,9}, 0));
 		
 	}
 	

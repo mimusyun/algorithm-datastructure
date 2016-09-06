@@ -4,6 +4,18 @@ import java.util.HashMap;
 
 public class StringAlg {
 	
+	public static String replace(String a, String b) {
+		
+		StringBuffer sb = new StringBuffer();
+		for(int i=0; i<a.length(); i++) {
+			if(a.charAt(i)==' ') sb.append(b);
+			else sb.append(a.charAt(i));
+		}
+		
+		return sb.toString();
+
+	}
+	
 	public static String reverseString(String str){
 		if(str==null) return null;
 		
