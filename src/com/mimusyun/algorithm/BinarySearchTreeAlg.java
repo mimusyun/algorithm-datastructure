@@ -13,16 +13,29 @@ public class BinarySearchTreeAlg {
 	
 	public static TreeNode createBinaryTree() {
 		
-		TreeNode root = new TreeNode(1);
+		TreeNode root = new TreeNode(4);
         root.left = new TreeNode(2);
-        root.right = new TreeNode(3);
-        root.left.left = new TreeNode(4);
-        root.left.left.left = new TreeNode(8);
-        root.left.right = new TreeNode(5);
-        root.right.left = new TreeNode(6);
-        root.right.right = new TreeNode(7);
+        root.right = new TreeNode(8);
+//        root.left.left = new TreeNode(4);
+//        root.left.left.left = new TreeNode(8);
+//        root.left.right = new TreeNode(5);
+        root.right.left = new TreeNode(5);
+        root.right.right = new TreeNode(10);
 		
 		return root;
+	}
+	
+	public static TreeNode findKthLargest(TreeNode root, int k) {
+		if(root==null) return null;
+	    int rightSize = 0;
+	    if(root.right!=null) rightSize = findTreeSize(root.right);
+	    if(rightSize+1 == k) { 
+            return root;
+        } else if(k > rightSize+1) {
+            return findKthLargest(root.left, k-rightSize-1);
+        } else {
+            return findKthLargest(root.right, k);
+        }
 	}
 	
 	public static int findTreeSize(TreeNode root) {
@@ -54,9 +67,6 @@ public class BinarySearchTreeAlg {
 	    		node.right = new TreeNode(Integer.valueOf(right), null, null);
 	    		st.add(node.right);
 	    	}
-	    	
-			
-			
 	    }
 	    
 	    return root;
@@ -214,6 +224,22 @@ public class BinarySearchTreeAlg {
 		
 		return root;
 		
+	}
+	
+	public static int findSize(TreeNode root) {
+		TreeNode _root = root;
+		Stack<TreeNode> st = new Stack<>();
+		st.push(_root);
+		int count = 0;
+		
+		while(!st.isEmpty()) {
+			TreeNode node = st.pop();
+			count++;
+			if(node.left!=null) st.push(node.left);
+			if(node.right!=null) st.push(node.right);
+		}
+		
+		return count;
 	}
 	
 	public ArrayList<Integer> levelorder(TreeNode root) {

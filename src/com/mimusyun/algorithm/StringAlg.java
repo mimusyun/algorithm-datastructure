@@ -1,8 +1,17 @@
 package com.mimusyun.algorithm;
 
 import java.util.HashMap;
+import java.util.HashSet;
 
 public class StringAlg {
+	
+	public static boolean areAllCharactersUnique(String str){
+	    HashSet<Character> set = new HashSet<>();
+	    for(Character c : str.toCharArray()) {
+	        if(set.add(c)) return false;
+	    }
+	    return true;
+	}
 	
 	public static String replace(String a, String b) {
 		
