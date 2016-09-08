@@ -25,6 +25,47 @@ public class BinarySearchTreeAlg {
 		return root;
 	}
 	
+	public int sumItr(TreeNode root) { 
+	    
+	    int total = 0;
+	    
+	    if(root==null) return total;
+	    Stack<TreeNode> st = new Stack<>();
+	    st.push(root);
+	    
+	    while(!st.isEmpty()) {
+	        TreeNode node = st.pop();
+	        total += node.data;
+	        if(node.left!=null) st.push(node.left);
+	        if(node.right!=null) st.push(node.right);
+	    }
+	    
+	    return total;
+
+	}
+	
+	public static int numberOfFullNodes(TreeNode root) { 
+	    
+	    if(root==null) return 0;
+	    
+	    Stack<TreeNode> st = new Stack<>();
+	    st.push(root);
+	    int cnt = 0;
+	    
+	    while(!st.isEmpty()) {
+	        TreeNode node = st.pop();
+	        boolean left = node.left!=null;
+	        boolean right = node.right!=null;
+	        
+	        if(left && right) cnt++;
+	        if(left) st.push(node.left);
+	        if(right) st.push(node.right);
+	    }
+	    
+	    return cnt;
+	    
+	}
+	
 	public static TreeNode findKthLargest(TreeNode root, int k) {
 		if(root==null) return null;
 	    int rightSize = 0;
@@ -414,5 +455,47 @@ public class BinarySearchTreeAlg {
 		t.right = restoreTreeHelper(nodes);
 		return t;
 	}
+	
+	public boolean isIdenticalIter(TreeNode root1, TreeNode root2) {
+	    
+	    if(root1 == null && root2 == null) return true;
+	    if(root1 == null || root2 == null) return false;
+	    
+	    Stack<TreeNode> st = new Stack<>();
+	    st.push(root1);
+	    st.push(root2);
+	    
+	    while(!st.isEmpty()) {
+	        TreeNode first = st.pop();
+	        TreeNode second = st.pop();
+	        
+	        if(first.data!=second.data) return false;
+	        if(first.left!=null && second.left==null) return false;
+	        if(first.left==null && second.left!=null) return false;
+	        
+	        if(first.left!=null) st.push(first.left);
+	        if(second.left!=null) st.push(second.left);
+	        if(first.right!=null) st.push(first.right);
+	        if(second.right!=null) st.push(second.right);
+	    }
+	    
+	    return true;
 
+	}
+	
+	public static TreeNode mirror(TreeNode root) {
+		if (root == null)
+            return null;
+ 
+        /* do the subtrees */
+		TreeNode left = mirror(root.left);
+		TreeNode right = mirror(root.right);
+ 
+        /* swap the left and right pointers */
+		root.left = right;
+		root.right = left;
+ 
+        return root;
+	}
+	
 }

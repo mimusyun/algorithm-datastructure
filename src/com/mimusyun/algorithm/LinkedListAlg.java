@@ -22,6 +22,17 @@ public class LinkedListAlg {
 		
 	}
 	
+	public static ListNode insertAtHead(ListNode head, int data) {
+
+	    ListNode newHead = new ListNode(data);
+	    
+	    if(head==null) return newHead;
+	    
+	    newHead.next = head;
+	    return newHead;
+
+	}
+	
 	public static ListNode createCircularList(String str) {
 		String[] arr = str.split("->");
 		
@@ -69,17 +80,6 @@ public class LinkedListAlg {
 
 		return true;
 
-	}
-	
-	public static ListNode insertAtHead(ListNode head, int data) {
-
-		if(head==null) return new ListNode(data);
-		
-		ListNode newHead = new ListNode(data);
-		newHead.next=head;
-		
-		return newHead;
-        
 	}
 	
 	public static Boolean isListEven(ListNode head) {

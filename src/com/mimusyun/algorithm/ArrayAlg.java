@@ -2,7 +2,6 @@ package com.mimusyun.algorithm;
 
 import java.util.Arrays;
 
-
 public class ArrayAlg {
 	
 	public static Boolean binarySearch(int[] arr, int n){
@@ -14,25 +13,23 @@ public class ArrayAlg {
 	}
 	
 	public static int getMaxRepetition(int[] a) {
-		
-		for(int k : a) System.out.println(k);
-		int max = a.length; 
-		// Iterate though input array, for every element a[i],
-		// increment a[a[i]%k] by k
-		for (int i = 0; i< a.length; i++) {  
-			a[a[i]%max] += max;
-		}
-		
-		for(int k : a) System.out.println(k);
-		// Find index of the maximum repeating element
-		int maxr = a[0], result = 0;
-		for (int i = 1; i < a.length; i++) {
-			if (a[i] > maxr) {
-				maxr = a[i];
-				result = i;
-			}
-		}
-		return result;
+
+		int len = a.length;
+	    
+	    for(int i=0; i<a.length; i++) {
+	        a[a[i]%len] += len;   
+	    }
+	    
+	    int maxRepetition = Integer.MIN_VALUE;
+	    int answer = 0;
+	    for(int i=0; i<len; i++) {
+	        if(a[i] > maxRepetition) {
+	            maxRepetition = a[i];
+	            answer = i;
+	        }
+	    }
+
+	    return answer;
 	}
 	
 	public static int[] coupleSum(int[] numbers, int target) {

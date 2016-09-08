@@ -9,6 +9,37 @@ public class MatrixAlg {
 		System.out.println(Arrays.deepToString(matrix));
 	}
 	
+	public void print(int arr[][],int row, int col,int result[],int pos){
+        System.out.println(row + " " + col);
+		if(row == arr.length-1 && col == arr[0].length-1){
+            result[pos] = arr[row][col];
+            System.out.println(Arrays.toString(result));
+            return;
+        }
+        if(row >= arr.length || col >= arr[0].length){
+            return;
+        }
+        
+        result[pos] = arr[row][col];
+        print(arr,row,col+1,result,pos+1);
+        print(arr,row+1,col,result,pos+1);
+    }
+	
+	public static void flipItVerticalAxis(int[][] matrix) {
+	    for(int[] arr : matrix) {
+	        for(int i=0; i<arr.length/2; i++) {
+	            int tmp = arr[i];
+	            arr[i] = arr[arr.length-1-i];
+	            arr[arr.length-1-i] = tmp;
+	        }
+	    }
+	}
+	
+	public static void rotateSquareImageCW(int[][] matrix) {
+	    transposeMatrix(matrix);
+	    flipItVerticalAxis(matrix);
+	}	
+	
 	public static void rotateSquareImageCCW(int[][] matrix) {
 	    transposeMatrix(matrix);
 	    flipItHorizontalAxis(matrix);
