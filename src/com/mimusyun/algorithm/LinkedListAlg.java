@@ -264,7 +264,35 @@ public class LinkedListAlg {
 	          curr.next = newNode;
 	      }
 	      return head;
-	  }
+	      
+	}
+	
+	public static ListNode removeDuplicates(ListNode head) {
+        
+		if(head==null) return null;
+		
+		ListNode curr = head;
+		ListNode prev = null;
+		ListNode _head = head;
+		
+		while(_head.next!=null) {
+			curr = _head.next;
+			prev = _head;
+			while(curr!=null) {
+				if(_head.data==curr.data) {
+					prev.next = curr.next;
+					curr=null;
+					continue;
+				}
+				prev = curr;
+				curr = curr.next;
+			}
+			_head = _head.next;
+		}
+
+		return head;
+	    
+	}
 
 
 	

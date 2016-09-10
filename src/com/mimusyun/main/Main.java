@@ -2,6 +2,7 @@ package com.mimusyun.main;
 
 import java.util.*;
 import com.mimusyun.algorithm.*;
+import com.mimusyun.algorithm.book.stdlib.Stopwatch;
 import com.mimusyun.datastructure.*;
 //import com.mimusyun.algorithm.book.examples.*;
 
@@ -9,8 +10,23 @@ public class Main {
 	
 	public static void main(String[] args) {
 		
-		print(ArrayAlg.binarySearch(new int[]{1,2,3,4,5,6,7,9}, 0));
-		
+		Stopwatch sw = new Stopwatch();
+		factorial(10000);
+		print(sw.elapsedTime());
+
+	}
+	
+	public static int countPaths(int m, int n){
+	    print(factorial(m+n-2)/(factorial(m-1)*factorial(n-1)));
+	    print(factorial(m-1));
+	    print(factorial(n-1));
+	    
+		return factorial(m+n-2)/(factorial(m-1)*factorial(n-1));
+	}
+
+	public static int factorial(int x) {
+	    if(x==0) return 1;
+	    return x * factorial(x-1);
 	}
 	
 	public static ListNode removeDuplicates(ListNode head) {
@@ -37,8 +53,6 @@ public class Main {
 		}
 
 		return head;
-
-
 	    
 	}
 	

@@ -65,6 +65,17 @@ public class ArrayAlg {
 
 	}
 	
+	public static int threeSum(int[] arr) {
+		int N = arr.length;
+		int count = 0;
+		for(int i=0; i<N; i++)
+			for(int j=i+1; j<N; j++)
+				for(int k=j+1; k<N; k++)
+					if(arr[i]+arr[j]+arr[k]==0)
+						count++;
+		return count;
+	}
+	
 
 	public static int[] rotateLeft(int[] arr, int k) {
 	    

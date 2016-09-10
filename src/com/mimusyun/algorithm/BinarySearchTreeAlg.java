@@ -25,6 +25,10 @@ public class BinarySearchTreeAlg {
 		return root;
 	}
 	
+	public static TreeNode createBinaryTreeStr(String str) {
+		return restoreTree(str);
+	}
+	
 	public int sumItr(TreeNode root) { 
 	    
 	    int total = 0;
@@ -496,6 +500,23 @@ public class BinarySearchTreeAlg {
 		root.right = left;
  
         return root;
+	}
+	
+	public static int pathlength(TreeNode root, int n1) {
+		if (root != null) {
+			int x = 0;
+			
+			if (root.data == n1) return x + 1;
+			
+			x = pathlength(root.left, n1);
+			//if (x > 0) return x + 1;
+			
+			x = pathlength(root.right, n1);
+			if (x > 0) return x + 1;
+
+			return 0;
+		}
+		return 0;
 	}
 	
 }
